@@ -16,6 +16,17 @@
             font-family: "Montserrat", serif;
         }
 
+        @keyframes slideTop {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+
         body {
             min-height: 100vh;
             margin: auto;
@@ -36,8 +47,8 @@
 
         section .input-item {
             background: white;
-            padding: 20px;
-            border-radius: 24px;
+            padding: 30px;
+            border-radius: 30px;
             box-shadow: 0px 6px 10px -3px #00000024;
         }
 
@@ -74,6 +85,10 @@
             cursor: pointer;
         }
 
+        section.form button.clear {
+            background: #FF5722;
+        }
+
         section.result {
             margin: auto;
             grid-gap: 40px;
@@ -85,6 +100,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             border-bottom: 1px solid gainsboro;
+            animation: slideTop 0.4s ease backwards;
         }
 
         section.result p {
@@ -101,6 +117,7 @@
             border-radius: 10px;
             box-shadow: 0px 3px 3px -2px #00000024;
             color: gray;
+            animation: slideTop 0.4s ease backwards;
         }
 
         section.result .item p:last-child {
@@ -125,19 +142,22 @@
 
 <body>
     <section class="header">
-        <h1 style="text-align: center;">Calculadora de 50/50</h1>
+        <h1 style="text-align: center;">
+            Calculadora de <br>
+            <span style="font-size: 50px;font-weight: 100;">50/50</span>
+        </h1>
     </section>
     <section class="form">
         <div class="input-item">
-            <p>Valor do <span>Bônus</span></p>
+            <p>R$ Valor do <span>Bônus</span></p>
             <input type="number" name="bonusValue" id="bonusValue">
         </div>
         <div class="input-item">
-            <p>Valor do <span>Donate</span></p>
+            <p>R$ Valor do <span>Donate</span></p>
             <input type="number" name="paidValue" id="paidValue">
         </div>
         <div class="input-item">
-            <p>Valor do <span>Resultado</span></p>
+            <p>R$ Valor do <span>Resultado</span></p>
             <input type="number" name="resultValue" id="resultValue">
         </div>
         <div>

@@ -24,15 +24,20 @@ function calculate() {
     const finalValue = halfValue - discount;
 
     localStorage.setItem('results', JSON.stringify({ bonusValue, paidValue, resultValue }));
-    updateView([halfValue, discount, finalValue]);
+    updateView([
+        getCurrency(halfValue),
+        getCurrency(discount),
+        getCurrency(finalValue)
+    ]);
 
     let streammerValue = bonusValue - paidValue;
     let userValue = (paidValue / bonusValue);
+    let streammerPercent = ((streammerValue / bonusValue) * 100).toFixed(0);
 
-    const strammerFormattedValue = ` (R$ ${streammerValue}) ${((streammerValue / bonusValue) * 100)}%`;
-    const userFormattedValue = `(R$ ${paidValue}) ${(userValue * 100)}%`;
+    const strammerFormattedValue = ` (${getCurrency(streammerValue)}) ${(streammerPercent)}%`;
+    const userFormattedValue = `(${getCurrency(paidValue)}) ${(100 - streammerPercent).toFixed(0)}%`;
     const parityValue = (resultValue * userValue);
-    updateParityView([strammerFormattedValue, userFormattedValue, parityValue]);
+    updateParityView([strammerFormattedValue, userFormattedValue, getCurrency(parityValue)], getCurrency(resultValue));
 }
 
 function resetViews() {
@@ -40,25 +45,28 @@ function resetViews() {
     result.innerHTML = "";
 }
 
-function updateParityView(items) {
+function updateParityView(items, result) {
     let container = document.createElement('div');
     let div = document.createElement('div');
     let title = document.createElement('p');
-    title.innerHTML = 'Valor por paridade (%)';
+    title.innerHTML = 'Por valores proporcionais (%)';
     title.className = 'label';
     div.style = "display:grid; grid-gap:18px"
     div.innerHTML = `
-        <div class="item">
-            <p>Valor do Minnie</p>
+        <div class="item" style="animation-delay:0.1s">
+            <p>Valor pago pelo Minnie</p>
             <p>${items[0]}</p>
         </div>
-        <div class="item">
-            <p>Valor do Fiel</p>
+        <div class="item" style="animation-delay:0.2s">
+            <p>Valor pago pelo Fiel</p>
             <p>${items[1]}</p>
         </div>
-        <div class="item">
-            <p>Valor a receber</p>
-            <p class="positive">R$ ${items[2]}</p>
+        <div class="item" style="animation-delay:0.3s">
+            <p>
+                Valor a receber <br>
+                <span style="font-weight: normal;font-size: 18px;"> ${result} * ${items[1].split(')')[1]} </span>
+            </p>
+            <p class="positive">${items[2]}</p>
         </div>
         `;
     let section = document.getElementById('result');
@@ -72,21 +80,21 @@ function updateView(items) {
     let container = document.createElement('div');
     let div = document.createElement('div');
     let title = document.createElement('p');
-    title.innerHTML = 'Valores brutos';
+    title.innerHTML = 'Por valores brutos';
     title.className = 'label';
     div.style = "display:grid; grid-gap:18px"
     div.innerHTML = `
-        <div class="item">
+        <div class="item" style="animation-delay:0.1s">
             <p>Valor da forra / 2</p>
-            <p>R$ ${items[0]}</p>
+            <p>${items[0]}</p>
         </div>
-        <div class="item">
+        <div class="item" style="animation-delay:0.2s">
             <p>Complemento do valor</p>
-            <p class="negative">- R$ ${items[1]}</p>
+            <p class="negative">- ${items[1]}</p>
         </div>
-        <div class="item">
+        <div class="item" style="animation-delay:0.3s">
             <p>Valor a receber</p>
-            <p class="positive">R$ ${items[2]}</p>
+            <p class="positive">${items[2]}</p>
         </div>
         `;
     let section = document.getElementById('result');
@@ -94,4 +102,8 @@ function updateView(items) {
     container.append(div);
     section.append(container);
     document.body.appendChild(section);
+}
+
+function getCurrency(number) {
+    return number.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 }
