@@ -18,8 +18,9 @@
 
         body {
             min-height: 100vh;
-            margin: 0px;
+            margin: auto;
             background: ghostwhite;
+            width: 80%;
         }
 
         section {
@@ -28,7 +29,7 @@
 
         section.form {
             display: grid;
-            grid-template-columns: repeat(3, 350px);
+            grid-template-columns: repeat(3, 1fr);
             grid-gap: 26px;
             justify-content: center;
         }
@@ -74,10 +75,10 @@
         }
 
         section.result {
-            width: 500px;
             margin: auto;
-            grid-gap: 18px;
+            grid-gap: 40px;
             display: grid;
+            grid-template-columns: repeat(2, 1fr);
         }
 
         section.result .item {
@@ -90,6 +91,16 @@
             margin: 0px 0px 18px;
             font-size: 20px;
             font-weight: 300;
+        }
+
+        section.result p.label {
+            background: white;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px -2px #00000024;
+            color: gray;
         }
 
         section.result .item p:last-child {
@@ -134,6 +145,10 @@
         </div>
     </section>
     <section id="result" class="result">
+        <section class="result">
+        </section>
+        <section class="result">
+        </section>
     </section>
 </body>
 
